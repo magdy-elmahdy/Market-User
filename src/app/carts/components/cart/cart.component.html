@@ -1,0 +1,47 @@
+<h1 class="text-danger mt-2">Shopping Cart</h1>
+<div class="cart-box">
+    <div class="headCart my-3">
+        <p class="lead pt-2">You have <span class="text-danger">{{cartProducts.length}}</span> Item in your Cart</p>
+        <span class="text-danger card-header" (click)="clearData()">Clear Your Cart</span>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantitiy</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- index in a kayword:number here -->
+            <tr *ngFor="let product of cartProducts;let i = index"> 
+                <td><img src="{{product.item.image}}" alt="img"></td>
+                <td>{{product.item.title}}</td>
+                <td>{{product.item.price}}L.E</td>
+                <td class="quantity">
+                    <div class="d-flex">
+                        <button class="btn btn-dark" (click)="plusAmount(i)">+</button>
+                        <input  class="form-control" type="number"(change)="detectChange()" [(ngModel)]="product.quantity">
+                        <button class="btn btn-dark" (click)="minsAmount(i)">-</button>
+                    </div>
+                </td>
+                <td>{{product.quantity * product.item.price}}</td>
+                <td><button class="btn btn-danger" (click)="deleteProduct(i)">Delete</button></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Total: {{total}} L.E</th>
+                <th><button class="btn btn-success"(click)="sendOrder()">Order Now</button></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="alert alert-success" role="alert" *ngIf="success"><strong>Well Done!</strong> Your order is Successully Sent</div>
